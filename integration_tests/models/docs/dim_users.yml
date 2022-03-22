@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: dim_users
+    description: >
+      A model built off the `users` seed, with many versions of the hash and
+      redact macros implemented for comparison
+    docs:
+      show: false
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: email_hash != email_hash_512
+      - dbt_utils.expression_is_true:
+          expression: email_hash != email_hash_name_salt
+      - dbt_utils.expression_is_true:
+          expression: email_hash = unique_email_hash
+      - dbt_utils.expression_is_true:
+          expression: email_hash != email_hash_default_salt
+      - dbt_utils.expression_is_true:
+          expression: email_hash != email_hash_no_salt
+      - dbt_utils.expression_is_true:
+          expression: email_hash_default_salt = email_hash_default_salt
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: name_hash
+        tests:
+          - not_null
+          - unique
+      - name: email_hash
+        tests:
+          - not_null
+          - unique
+      - name: email_hash_512
+        tests:
+          - not_null
+          - unique
+      - name: unique_email_hash
+        tests:
+          - not_null
+          - unique
+      - name: email_hash_name_salt
+        tests:
+          - not_null
+          - unique
+      - name: email_hash_default_salt
+        tests:
+          - not_null
+          - unique
+      - name: email_hash_no_salt
+        tests:
+          - not_null
+          - unique

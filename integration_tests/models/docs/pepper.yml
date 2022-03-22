@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: pepper
+    description: >
+      A model the same shape as `users`, but where each row is just
+      the pepper generated under various configurations
+    docs:
+      show: false

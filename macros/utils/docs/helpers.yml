@@ -1,0 +1,32 @@
+version: 2
+macros:
+  - name: simple_hash
+    description: Applies database-specific SHA hashing function
+    docs:
+      show: false
+  - name: sql_lower
+    description: Wraps the passed expr in the sql `lower()` function
+    docs:
+      show: false
+  - name: sql_quote_string
+    description: Wraps the passed expr in single quotes
+    docs:
+      show: false
+  - name: default__simple_hash
+    docs:
+      show: false
+  - name: bigquery__simple_hash
+    docs:
+      show: false
+  - name: postgres__simple_hash
+    docs:
+      show: false
+  - name: raise_on_bad_digest_size
+    docs:
+      show: false
+  - name: raise_on_bad_persistence
+    docs:
+      show: false
+  - name: raise_on_bad_scope
+    docs:
+      show: false
