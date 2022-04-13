@@ -6,7 +6,7 @@ macros:
       Returns a SHA2 hex digest of `expr`, if `expr` is unique* in its context; 
       lowercases and adds a pepper before
       hashing by default. For additional security, set `salt_expr` to a value
-      with the same cardinality as `expr` (e.g., if `expr='email'`, then a 
+      with the same or higher cardinality as `expr` (e.g., if `expr='email'`, then a 
       good salt would be `salt_expr='user_id'`). Also set the 
       `DBT_PRIVACY_PEPPER_SEED` environment variable to a random value; 
       see docs for `generate_pepper` for more information.
@@ -16,7 +16,8 @@ macros:
       
       NOTE: The value of `DBT_PRIVACY_PEPPER_SEED` will be visible in the compiled 
       model code and in query logs. If an attacker has access to the code and the
-      data, they will be able to construct a rainbow table for this hash method.
+      data, they will be able to construct a rainbow table for this hash method
+      unless `salt_expr` is also provided.
     docs:
       show: true
     arguments:
@@ -50,8 +51,8 @@ macros:
       - name: pepper_persistence
         type: string
         description: >
-          Defaults to `'permanent'`. Must be one of (`'permanent'` or `'ephemeral'`).
-          If `ephemeral`, a new pepper will be generated on every run of dbt.
+          Defaults to `'permanent'`. Must be one of (`'permanent'` or `'per-run'`).
+          If `per-run`, a new pepper will be generated on every run of dbt.
       - name: digest_size
         type: int
         description: >

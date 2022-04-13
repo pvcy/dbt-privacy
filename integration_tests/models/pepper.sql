@@ -8,7 +8,7 @@ with
             {{ dbt_privacy.generate_pepper(pepper_scope="model") }} as model_pepper,
             {{
                 dbt_privacy.generate_pepper(
-                    pepper_scope="project", pepper_persistence="ephemeral"
+                    pepper_scope="project", pepper_persistence="per-run"
                 )
             }} as ephemeral_project_pepper
         from users

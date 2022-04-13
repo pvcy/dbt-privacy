@@ -2,14 +2,15 @@
 {{- dbt_privacy.raise_on_bad_scope(pepper_scope) -}}
 {{- dbt_privacy.raise_on_bad_persistence(pepper_persistence) -}}
 
-{%- set pepper = env_var('DBT_PRIVACY_PEPPER_SEED', '549286495') ~ context['project_name'] -%}
+{%- set pepper = env_var("DBT_PRIVACY_PEPPER_SEED", "") ~ context["project_name"] -%}
 
 {%- if pepper_scope == "target" -%}
 {%- set pepper = pepper ~ target.profile_name ~ target.name -%}
-{%- elif pepper_scope == "model" -%}{%- set pepper = pepper ~ this -%}
+{%- elif pepper_scope == "model" -%}
+{%- set pepper = pepper ~ this -%}
 {%- endif -%}
 
-{%- if pepper_persistence == "ephemeral" -%}
+{%- if pepper_persistence == "per-run" -%}
 {%- set pepper = pepper ~ run_started_at.strftime("%Y-%m-%d %H:%M:%S.%f %z") -%}
 {%- endif -%}
 
@@ -29,7 +30,7 @@
 {%- endmacro -%}
 
 {%- macro raise_on_bad_persistence(
-    pepper_persistence, ok_persistence=["permanent", "ephemeral"]
+    pepper_persistence, ok_persistence=["permanent", "per-run"]
 ) -%}
 {%- if pepper_persistence not in ok_persistence -%}
 {%- set ok_list = ok_persistence | join(", ") -%}

@@ -17,14 +17,15 @@ Note that macros in this package are designed to work across Postgres, Snowflake
 
 Returns a SHA2 hex digest of `expr`; lowercases and adds a pepper before
 hashing by default. For additional security, set `salt_expr` to a value
-with the same cardinality as `expr` (e.g., if `expr='email'`, then a 
+with the same or higher cardinality as `expr` (e.g., if `expr='email'`, then a 
 good salt would be `salt_expr='user_id'`). Also set the 
 `DBT_PRIVACY_PEPPER_SEED` environment variable to a random value; 
 see docs for `generate_pepper` for more information.
 
 NOTE: The value of `DBT_PRIVACY_PEPPER_SEED` will be visible in the compiled 
 model code and in query logs. If an attacker has access to the code and the
-data, they will be able to construct a rainbow table for this hash method.
+data, they will be able to construct a rainbow table for this hash method
+unless `salt_expr` is also provided.
 
 For more information, see the docs generated in your project.
 
@@ -47,7 +48,7 @@ Example Usage:
 Returns a SHA2 hex digest of `expr`, if `expr` is unique* in its context; 
 lowercases and adds a pepper before
 hashing by default. For additional security, set `salt_expr` to a value
-with the same cardinality as `expr` (e.g., if `expr='email'`, then a 
+with the same or higher cardinality as `expr` (e.g., if `expr='email'`, then a 
 good salt would be `salt_expr='user_id'`). Also set the 
 `DBT_PRIVACY_PEPPER_SEED` environment variable to a random value; 
 see docs for `generate_pepper` for more information.
@@ -57,7 +58,8 @@ current window is <= `k`, where `k` defaults to 1 but is configurable.
 
 NOTE: The value of `DBT_PRIVACY_PEPPER_SEED` will be visible in the compiled 
 model code and in query logs. If an attacker has access to the code and the
-data, they will be able to construct a rainbow table for this hash method.
+data, they will be able to construct a rainbow table for this hash method
+unless `salt_expr` is also provided.
 
 For more information, see the docs generated in your project.
 
