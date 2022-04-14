@@ -12,7 +12,7 @@ macros:
       see docs for `generate_pepper` for more information.
 
       "Unique" means that the number of rows partitioned by `expr` in the 
-      current window is <= `k`, where `k` defaults to 1 but is configurable.
+      current window is <= `n`, where `n` defaults to 1 but is configurable.
       
       NOTE: The value of `DBT_PRIVACY_PEPPER_SEED` will be visible in the compiled 
       model code and in query logs. If an attacker has access to the code and the
@@ -58,7 +58,7 @@ macros:
         description: >
           The size of the resulting digest. Defaults to 256. Must be one of
           (224, 256, 384, 512)
-      - name: k
+      - name: n
         type: int
         description: >
           The group size that defines "unique". Defaults to 1

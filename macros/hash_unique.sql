@@ -5,12 +5,12 @@
     pepper_scope="model",
     pepper_persistence="permanent",
     digest_size=256,
-    k=1
+    n=1
 ) -%}
 {%- set raw_expr = expr -%}
 {%- if lowercase == true %}{%- set expr = dbt_privacy.sql_lower(expr) -%}{%- endif -%}
 case
-    when count(*) over (partition by {{ expr }}) <= {{ k }}
+    when count(*) over (partition by {{ expr }}) <= {{ n }}
     then
         {{
             dbt_privacy.hash(

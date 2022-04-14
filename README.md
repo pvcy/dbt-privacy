@@ -54,7 +54,7 @@ good salt would be `salt_expr='user_id'`). Also set the
 see docs for `generate_pepper` for more information.
 
 "Unique" means that the number of rows partitioned by `expr` in the 
-current window is <= `k`, where `k` defaults to 1 but is configurable.
+current window is <= `n`, where `n` defaults to 1 but is configurable.
 
 NOTE: The value of `DBT_PRIVACY_PEPPER_SEED` will be visible in the compiled 
 model code and in query logs. If an attacker has access to the code and the
@@ -72,7 +72,7 @@ Example Usage:
     pepper_scope="model",
     pepper_persistence="permanent",
     digest_size=256,
-    k=5
+    n=5
 ) }}
 {{ dbt_privacy.hash_unique("zip_code", salt_expr="state") }}
 ```
@@ -84,7 +84,7 @@ Returns `redact_expr` instead of `expr`, if `expr` is unique* in its context;
 lowercases before checking for uniqueness by default.
 
 "Unique" means that the number of rows partitioned by `expr` in the 
-current window is <= `k`, where `k` defaults to 1 but is configurable.
+current window is <= `n`, where `n` defaults to 1 but is configurable.
 
 For more information, see the docs generated in your project.
 
@@ -94,6 +94,6 @@ Example Usage:
     "zip_code", 
     lowercase=false, 
     redact_expr="'**REDACTED**'", 
-    k=5
+    n=5
 ) }}
 ```

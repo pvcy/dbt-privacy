@@ -7,7 +7,7 @@ macros:
       lowercases before checking for uniqueness by default.
 
       "Unique" means that the number of rows partitioned by `expr` in the 
-      current window is <= `k`, where `k` defaults to 1 but is configurable.
+      current window is <= `n`, where `n` defaults to 1 but is configurable.
     docs:
       show: true
     arguments:
@@ -26,7 +26,7 @@ macros:
         description: >
           An expression to be substituted for expr if the cell needs to be redacted.
           Defaults to `'**REDACTED**'`
-      - name: k
+      - name: n
         type: int
         description: >
           The group size that defines "unique". Defaults to 1
