@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: duplicate_users
+    docs:
+      show: false
+    description: >
+      A copy of the users seed, partially duplicated by unioning on itself. The user
+      with ID = 1 is not duplicated, but all other rows are duplicated, with their
+      emails uppercased. The purpose of this model is to test the *_unique macros
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: email not ilike '%@%'
+          where: id = 1
+      - dbt_utils.expression_is_true:
+          expression: email ilike '%@%'
+          where: id != 1
+      - dbt_utils.expression_is_true:
+          expression: email_case_sensitive not ilike '%@%'
+      - dbt_utils.expression_is_true:
+          expression: redact_email = '**REDACTED**'
+          where: id = 1
+      - dbt_utils.expression_is_true:
+          expression: redact_email != '**REDACTED**'
+          where: id != 1
+      - dbt_utils.expression_is_true:
+          expression: redact_email_case_sensitive = '**REDACTED**'
+    columns:
+      - name: id
+      - name: email
+        tests:
+          - not_null
+      - name: email_case_sensitive
+        tests:
+          - not_null
+      - name: redact_email
+        tests:
+          - not_null
+      - name: redact_email_case_sensitive
+        tests:
+          - not_null
+          - uniform

@@ -1,0 +1,32 @@
+version: 2
+
+macros:
+  - name: redact_unique
+    description: >
+      Returns `redact_expr` instead of `expr`, if `expr` is unique* in its context;
+      lowercases before checking for uniqueness by default.
+
+      "Unique" means that the number of rows partitioned by `expr` in the 
+      current window is <= `n`, where `n` defaults to 1 but is configurable.
+    docs:
+      show: true
+    arguments:
+      - name: expr
+        type: string
+        description: >
+          The expression to be checked for uniqueness and hashed.
+          Can be a field reference or any other valid SQL expression
+      - name: lowercase
+        type: bool
+        description: >
+          Defaults to true. If true, lowercases `expr` before checking for uniqueness
+          or hashing
+      - name: redact_expr
+        type: string
+        description: >
+          An expression to be substituted for expr if the cell needs to be redacted.
+          Defaults to `'**REDACTED**'`
+      - name: n
+        type: int
+        description: >
+          The group size that defines "unique". Defaults to 1

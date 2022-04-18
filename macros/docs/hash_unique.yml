@@ -1,0 +1,64 @@
+version: 2
+
+macros:
+  - name: hash_unique
+    description: >
+      Returns a SHA2 hex digest of `expr`, if `expr` is unique* in its context; 
+      lowercases and adds a pepper before
+      hashing by default. For additional security, set `salt_expr` to a value
+      with the same or higher cardinality as `expr` (e.g., if `expr='email'`, then a 
+      good salt would be `salt_expr='user_id'`). Also set the 
+      `DBT_PRIVACY_PEPPER_SEED` environment variable to a random value; 
+      see docs for `generate_pepper` for more information.
+
+      "Unique" means that the number of rows partitioned by `expr` in the 
+      current window is <= `n`, where `n` defaults to 1 but is configurable.
+      
+      NOTE: The value of `DBT_PRIVACY_PEPPER_SEED` will be visible in the compiled 
+      model code and in query logs. If an attacker has access to the code and the
+      data, they will be able to construct a rainbow table for this hash method
+      unless `salt_expr` is also provided.
+    docs:
+      show: true
+    arguments:
+      - name: expr
+        type: string
+        description: >
+          The expression to be checked for uniqueness and hashed.
+          Can be a field reference or any other valid SQL expression
+      - name: lowercase
+        type: bool
+        description: >
+          Defaults to true. If true, lowercases `expr` before checking for uniqueness
+          or hashing
+      - name: salt_expr
+        type: string
+        description: >
+          An expression to act as salt, which is prepended to `expr` before hashing.
+          `salt_expr` will itself be hashed before being prepended to `expr`. For example,
+          if `expr` is an email address field, `salt_expr` could be the `user_id`
+          field. If not provided, will default to the empty string
+      - name: pepper_scope
+        type: string
+        description: >
+          Defaults to `'model'`. Must be one of (`'model'`, `'target'`, or
+          `'project'`). The pepper generated will be unique within the defined scope,
+          which means the hash produced for an `expr` will also be unique within the
+          defined scope. For example, if you would like to hash an email address field
+          and would like a unique email address to have the same digest in multiple
+          models, use the `target` scope. If you would like that email address to have
+          the same digest in dev and prod, use the `project` scope
+      - name: pepper_persistence
+        type: string
+        description: >
+          Defaults to `'permanent'`. Must be one of (`'permanent'` or `'per-run'`).
+          If `per-run`, a new pepper will be generated on every run of dbt.
+      - name: digest_size
+        type: int
+        description: >
+          The size of the resulting digest. Defaults to 256. Must be one of
+          (224, 256, 384, 512)
+      - name: n
+        type: int
+        description: >
+          The group size that defines "unique". Defaults to 1

@@ -1,0 +1,53 @@
+version: 2
+
+models:
+  - name: joined
+    description: >
+      This model joins `dim_users` and `pepper` to compare the pepper values
+      generated in each model
+    docs:
+      show: false
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: project_pepper = pepper__project_pepper
+      - dbt_utils.expression_is_true:
+          expression: target_pepper = pepper__target_pepper
+      - dbt_utils.expression_is_true:
+          expression: model_pepper != pepper__model_pepper
+      - dbt_utils.expression_is_true:
+          expression: project_pepper != ephemeral_project_pepper
+      - dbt_utils.expression_is_true:
+          expression: ephemeral_project_pepper = pepper__ephemeral_project_pepper
+    columns:
+      - name: project_pepper
+        tests:
+          - not_null
+          - uniform
+      - name: target_pepper
+        tests:
+          - not_null
+          - uniform
+      - name: model_pepper
+        tests:
+          - not_null
+          - uniform
+      - name: ephemeral_project_pepper
+        tests:
+          - not_null
+          - uniform
+      - name: pepper__project_pepper
+        tests:
+          - not_null
+          - uniform
+      - name: pepper__target_pepper
+        tests:
+          - not_null
+          - uniform
+      - name: pepper__model_pepper
+        tests:
+          - not_null
+          - uniform
+      - name: pepper__ephemeral_project_pepper
+        tests:
+          - not_null
+          - uniform

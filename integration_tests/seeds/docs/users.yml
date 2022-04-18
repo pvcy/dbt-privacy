@@ -1,0 +1,10 @@
+version: 2
+
+seeds:
+  - name: users
+    description: >
+      This fake list of users was inspired by the article, "26 History-Making
+      Black Americans Everyone Should Know," written Jan 8, 2021 and accessed at
+      https://www.oprahdaily.com/life/g25954127/african-american-historical-figures/
+    docs:
+      show: false
