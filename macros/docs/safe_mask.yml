@@ -1,0 +1,34 @@
+version: 2
+
+macros:
+  - name: safe_mask
+    description: >
+      Returns a string of length `n + keep_n`, consisting of a fixed number (`n`)
+      of `mask_char`s.
+
+      If `keep_n > 0`, includes `keep_n` characters from the original `expr`,
+      from the direction `keep_dir`.
+    docs:
+      show: true
+    arguments:
+      - name: expr
+        type: string
+        description: >
+          The expression to be masked. Can be a field reference or any other
+          valid SQL expression
+      - name: mask_char
+        type: string
+        description: >
+          Defaults to `"*"`. Can be any single character
+      - name: n
+        type: integer
+        description: >
+          The number of times `mask_char` is repeated in the result
+      - name: keep_n
+        type: integer
+        description: >
+          Defaults to `0`. The number of characters from the original `expr` to include in the result.
+      - name: keep_dir
+        type: string
+        description: >
+          Defaults to `"right"`. Must be one of (`"right"` or `"left"`).

@@ -97,3 +97,30 @@ Example Usage:
     n=5
 ) }}
 ```
+
+### safe_mask
+[Source](macros/safe_mask.sql)
+
+Returns a string of length `n + keep_n`, consisting of a fixed number (`n`)
+of `mask_char`s.
+
+If `keep_n > 0`, includes `keep_n` characters from the original `expr`,
+from the direction `keep_dir`.
+
+For more information, see the docs generated in your project.
+
+Example Usage:
+```
+{{ dbt_privacy.safe_mask("phone_number") }}
+# input: +12125551234
+# output: ********
+
+{{ dbt_privacy.safe_mask(
+    "phone_number", 
+    n=8,
+    keep_n=4,
+    keep_dir="right"
+) }}
+# input: +12125551234
+# output: ********1234
+```
