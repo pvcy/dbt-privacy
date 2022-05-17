@@ -28,6 +28,8 @@ models:
           expression: email_safe_mask_keep_4 = '********.com'
       - dbt_utils.expression_is_true:
           expression: right(email_safe_mask_keep_left, 8) = '********'
+      - dbt_utils.expression_is_true:
+          expression: null_safe_mask is null
     columns:
       - name: id
         tests:
@@ -73,3 +75,6 @@ models:
       - name: email_safe_mask_keep_left
         tests:
           - unique
+      - name: null_safe_mask
+        tests:
+          - uniform

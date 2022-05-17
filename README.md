@@ -101,8 +101,8 @@ Example Usage:
 ### safe_mask
 [Source](macros/safe_mask.sql)
 
-Returns a string of length `n + keep_n`, consisting of a fixed number (`n`)
-of `mask_char`s.
+Unless `expr` is null, replaces `expr` with a string of length
+`n + keep_n`, consisting of a fixed number (`n`) of `mask_char`s.
 
 If `keep_n > 0`, includes `keep_n` characters from the original `expr`,
 from the direction `keep_dir`.

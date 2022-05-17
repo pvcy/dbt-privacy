@@ -7,13 +7,18 @@
 {% endmacro %}
 
 {%- macro default__safe_mask(expr, mask_char, n, keep_n, keep_dir) -%}
-{%- if keep_dir == "left" -%}
-left({{ expr }}, {{ keep_n }}) || {{- " " -}}
-{%- endif -%}
-'{{- mask_char * n -}}'
-{%- if keep_dir == "right" -%}
-{{- " " -}} || right({{ expr }}, {{ keep_n }})
-{%- endif -%}
+case
+    when {{ expr }} is null 
+    then null
+    else
+        {% if keep_dir == "left" -%}
+        left({{ expr }}, {{ keep_n }}) || {{- " " -}}
+        {%- endif -%}
+        '{{- mask_char * n -}}'
+        {%- if keep_dir == "right" -%}
+        {{- " " -}} || right({{ expr }}, {{ keep_n }})
+        {%- endif %}
+end
 {%- endmacro -%}
 
 {%- macro raise_on_negative(n,  label) -%}
