@@ -20,14 +20,6 @@ models:
           expression: email_hash != email_hash_no_salt
       - dbt_utils.expression_is_true:
           expression: email_hash_default_salt = email_hash_default_salt
-      - dbt_utils.expression_is_true:
-          expression: email_safe_mask = '********'
-      - dbt_utils.expression_is_true:
-          expression: email_safe_mask_slash = '////////'
-      - dbt_utils.expression_is_true:
-          expression: email_safe_mask_keep_4 = '********.com'
-      - dbt_utils.expression_is_true:
-          expression: right(email_safe_mask_keep_left, 8) = '********'
     columns:
       - name: id
         tests:
@@ -60,16 +52,4 @@ models:
       - name: email_hash_no_salt
         tests:
           - not_null
-          - unique
-      - name: email_safe_mask
-        tests:
-          - uniform
-      - name: email_safe_mask_slash
-        tests:
-          - uniform
-      - name: email_safe_mask_keep_4
-        tests:
-          - uniform
-      - name: email_safe_mask_keep_left
-        tests:
           - unique

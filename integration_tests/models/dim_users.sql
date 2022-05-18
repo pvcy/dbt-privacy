@@ -20,12 +20,7 @@ with
                 dbt_privacy.generate_pepper(
                     pepper_scope="project", pepper_persistence="per-run"
                 )
-            }} as ephemeral_project_pepper,
-            
-            {{ dbt_privacy.safe_mask("email") }} as email_safe_mask,
-            {{ dbt_privacy.safe_mask("email", mask_char="/") }} as email_safe_mask_slash,
-            {{ dbt_privacy.safe_mask("email", keep_n=4) }} as email_safe_mask_keep_4,
-            {{ dbt_privacy.safe_mask("email", n=8, keep_n=6, keep_dir="left") }} as email_safe_mask_keep_left
+            }} as ephemeral_project_pepper
         from users
     )
 select *

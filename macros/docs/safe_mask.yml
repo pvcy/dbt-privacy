@@ -3,8 +3,8 @@ version: 2
 macros:
   - name: safe_mask
     description: >
-      Returns a string of length `n + keep_n`, consisting of a fixed number (`n`)
-      of `mask_char`s.
+      Unless `expr` is null, replaces `expr` with a string of length
+      `n + keep_n`, consisting of a fixed number (`n`) of `mask_char`s.
 
       If `keep_n > 0`, includes `keep_n` characters from the original `expr`,
       from the direction `keep_dir`.
@@ -23,7 +23,7 @@ macros:
       - name: n
         type: integer
         description: >
-          The number of times `mask_char` is repeated in the result
+          Defaults to `8`. The number of times `mask_char` is repeated in the result
       - name: keep_n
         type: integer
         description: >

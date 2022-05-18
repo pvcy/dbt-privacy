@@ -10,7 +10,9 @@ the latest installation instructions, or [read dbt's docs](https://docs.getdbt.c
 for more information on installing packages.
 
 ## Macros in this Package
-Note that macros in this package are designed to work across Postgres, Snowflake, BigQuery, and Redshift data warehouses, but as of April 2022, we have only tested the macros against Postgres and Snowflake.
+Note that macros in this package are designed to work across Postgres, Snowflake, BigQuery, and Redshift data warehouses, but as of May 2022, we have only tested the macros against Postgres and Snowflake.
+
+[Click Here](https://pvcy.github.io/dbt-privacy/) to view the dbt docs site for the macros in this package.
 
 ### hash
 [Source](macros/hash.sql)
@@ -27,7 +29,7 @@ model code and in query logs. If an attacker has access to the code and the
 data, they will be able to construct a rainbow table for this hash method
 unless `salt_expr` is also provided.
 
-For more information, see the docs generated in your project.
+For more information, see the [docs](https://pvcy.github.io/dbt-privacy/).
 
 Example Usage:
 ```
@@ -61,7 +63,7 @@ model code and in query logs. If an attacker has access to the code and the
 data, they will be able to construct a rainbow table for this hash method
 unless `salt_expr` is also provided.
 
-For more information, see the docs generated in your project.
+For more information, see the [docs](https://pvcy.github.io/dbt-privacy/).
 
 Example Usage:
 ```
@@ -77,6 +79,36 @@ Example Usage:
 {{ dbt_privacy.hash_unique("zip_code", salt_expr="state") }}
 ```
 
+### mask_email
+[Source](macros/mask_email.sql)
+
+Splits an email address into its address and domain parts.
+Will `safe_mask` the address and also `safe_mask` the domain, if
+there are fewer than `domain_n` records with that domain.
+
+Returns `null` if `expr` is `null`, but does not return `null` if `expr`
+is not a valid email address (with no "@").
+
+Note: Masking unique domains is important for protecting individuals
+with addresses like `personal@famouscelebrity.com`
+
+For more information, see the [docs](https://pvcy.github.io/dbt-privacy/).
+
+Example Usage:
+```
+{{ dbt_privacy.mask_email("email") }}
+# input: ted@example.com
+# output: ********@********
+
+{{ dbt_privacy.mask_email(
+    "email", 
+    n=4,
+    domain_n=0,
+) }}
+# input: ted@example.com
+# output: ****@example.com
+```
+
 ### redact_unique
 [Source](macros/redact_unique.sql)
 
@@ -86,7 +118,7 @@ lowercases before checking for uniqueness by default.
 "Unique" means that the number of rows partitioned by `expr` in the 
 current window is <= `n`, where `n` defaults to 1 but is configurable.
 
-For more information, see the docs generated in your project.
+For more information, see the [docs](https://pvcy.github.io/dbt-privacy/).
 
 Example Usage:
 ```
@@ -101,13 +133,13 @@ Example Usage:
 ### safe_mask
 [Source](macros/safe_mask.sql)
 
-Returns a string of length `n + keep_n`, consisting of a fixed number (`n`)
-of `mask_char`s.
+Unless `expr` is null, replaces `expr` with a string of length
+`n + keep_n`, consisting of a fixed number (`n`) of `mask_char`s.
 
 If `keep_n > 0`, includes `keep_n` characters from the original `expr`,
 from the direction `keep_dir`.
 
-For more information, see the docs generated in your project.
+For more information, see the [docs](https://pvcy.github.io/dbt-privacy/).
 
 Example Usage:
 ```
