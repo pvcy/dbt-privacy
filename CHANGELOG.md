@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Features
 
 -   adds a mask_email macro that also masks uncommon domain names ([#4](https://github.com/pvcy/dbt-privacy/issues/4))
+-   adds a mask macro ([#3](https://github.com/pvcy/dbt-privacy/issues/3))
 -   adds a safe_mask macro ([#2](https://github.com/pvcy/dbt-privacy/issues/2))
 
 ## [0.1.0] - 2022-04-18

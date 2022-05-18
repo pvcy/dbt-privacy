@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: test_mask
+    description: Tests the mask macro
+    docs:
+      show: false
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: default_mask != email
+      - dbt_utils.expression_is_true:
+          expression: default_mask like '*%'
+      - dbt_utils.expression_is_true:
+          expression: length(default_mask) = length(email)
+      - dbt_utils.expression_is_true:
+          expression: slash_mask like '/%'
+      - dbt_utils.expression_is_true:
+          expression: length(slash_mask) = length(email)
+      - dbt_utils.expression_is_true:
+          expression: keep_4_mask != email
+      - dbt_utils.expression_is_true:
+          expression: keep_4_mask like '*%'
+      - dbt_utils.expression_is_true:
+          expression: right(keep_4_mask, 4) = right(email, 4)
+      - dbt_utils.expression_is_true:
+          expression: length(keep_4_mask) = length(email)
+      - dbt_utils.expression_is_true:
+          expression: keep_6_left_mask != email
+      - dbt_utils.expression_is_true:
+          expression: keep_6_left_mask like '%*'
+      - dbt_utils.expression_is_true:
+          expression: left(keep_6_left_mask, 6) = left(email, 6)
+      - dbt_utils.expression_is_true:
+          expression: length(keep_6_left_mask) = length(email)
+      - dbt_utils.expression_is_true:
+          expression: null_mask is null
+    columns:
+      - name: id
+        tests:
+          - unique
+      - name: default_mask
+      - name: slash_mask
+      - name: keep_4_mask
+      - name: keep_6_left_mask
+        tests:
+          - unique
+      - name: null_mask
+        tests:
+          - uniform
