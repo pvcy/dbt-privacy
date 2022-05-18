@@ -1,0 +1,30 @@
+version: 2
+
+macros:
+  - name: mask
+    description: >
+      Unless `expr` is null, replaces `expr` with a string of the same length,
+      but with the contents replaced by `mask_char`.      
+
+      If `keep_n > 0`, includes `keep_n` characters from the original `expr`,
+      from the direction `keep_dir`.
+    docs:
+      show: true
+    arguments:
+      - name: expr
+        type: string
+        description: >
+          The expression to be masked. Can be a field reference or any other
+          valid SQL expression
+      - name: mask_char
+        type: string
+        description: >
+          Defaults to `"*"`. Can be any single character
+      - name: keep_n
+        type: integer
+        description: >
+          Defaults to `0`. The number of characters from the original `expr` to include in the result.
+      - name: keep_dir
+        type: string
+        description: >
+          Defaults to `"right"`. Must be one of (`"right"` or `"left"`).

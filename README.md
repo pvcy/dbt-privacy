@@ -79,6 +79,34 @@ Example Usage:
 {{ dbt_privacy.hash_unique("zip_code", salt_expr="state") }}
 ```
 
+### mask
+[Source](macros/mask.sql)
+
+Unless `expr` is null, replaces `expr` with a string of the same length,
+but with the contents replaced by `mask_char`.
+
+If `keep_n > 0`, includes `keep_n` characters from the original `expr`,
+from the direction `keep_dir`.
+
+For more information, see the [docs](https://pvcy.github.io/dbt-privacy/).
+
+Example Usage:
+```
+{{ dbt_privacy.mask("first_name") }}
+# input: Ted
+# output: ***
+# input: Matthew
+# output: *******
+
+{{ dbt_privacy.mask(
+    "phone_number",
+    keep_n=4,
+    keep_dir="right"
+) }}
+# input: +12125551234
+# output: ********1234
+```
+
 ### mask_email
 [Source](macros/mask_email.sql)
 

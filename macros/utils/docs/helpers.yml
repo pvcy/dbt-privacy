@@ -16,6 +16,9 @@ macros:
     description: Wraps the passed expr in single quotes
     docs:
       show: false
+  - name: default__mask
+    docs:
+      show: false
   - name: default__safe_mask
     docs:
       show: false
