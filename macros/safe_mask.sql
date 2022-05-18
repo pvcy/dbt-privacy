@@ -11,11 +11,11 @@ case
     when {{ expr }} is null 
     then null
     else
-        {% if keep_dir == "left" -%}
+        {% if keep_dir == "left" and keep_n > 0 -%}
         left({{ expr }}, {{ keep_n }}) || {{- " " -}}
         {%- endif -%}
         '{{- mask_char * n -}}'
-        {%- if keep_dir == "right" -%}
+        {%- if keep_dir == "right" and keep_n > 0 -%}
         {{- " " -}} || right({{ expr }}, {{ keep_n }})
         {%- endif %}
 end

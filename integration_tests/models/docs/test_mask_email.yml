@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: test_mask_email
+    description: Tests the mask_email macro
+    docs:
+      show: false
+    tests:
+      - dbt_utils.expression_is_true:
+          expression: default_mask = '********@********'
+          where: id > 1
+      - dbt_utils.expression_is_true:
+          expression: slash_2_mask = '//@//'
+          where: id > 1
+      - dbt_utils.expression_is_true:
+          expression: domain_n_20 = '********@********'
+          where: id in (2, 3)
+      - dbt_utils.expression_is_true:
+          expression: lower(domain_n_20) = '********@example.com'
+          where: id > 3
+      - dbt_utils.expression_is_true:
+          expression: domain_n_20_case_sensitive = '********@********'
+          where: id in (2, 3, 4)
+      - dbt_utils.expression_is_true:
+          expression: domain_n_20_case_sensitive = '********@example.com'
+          where: id > 4
+    columns:
+      - name: id
+        tests:
+          - unique
+      - name: email
+        tests:
+          - unique
+      - name: default_mask
+        tests:
+          - uniform:
+              where: default_mask is not null
+      - name: slash_2_mask
+        tests:
+          - uniform:
+              where: slash_2_mask is not null
+      - name: domain_n_20
+      - name: domain_n_20_case_sensitive

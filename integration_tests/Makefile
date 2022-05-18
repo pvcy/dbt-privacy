@@ -13,6 +13,10 @@ clean:
 	pipenv run dbt clean
 	pipenv --rm
 	docker-compose down
+
+.PHONY: fmt
+fmt:
+	pipenv run sqlfmt models
 	
 .PHONY: psql
 psql:

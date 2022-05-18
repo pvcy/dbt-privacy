@@ -1,0 +1,40 @@
+version: 2
+
+macros:
+  - name: mask_email
+    description: >
+      Splits an email address into its address and domain parts.
+      Will `safe_mask` the address and also `safe_mask` the domain, if
+      there are fewer than `domain_n` records with that domain.
+
+      Returns `null` if `expr` is `null`, but does not return `null` if `expr`
+      is not a valid email address (with no "@").
+
+      Note: Masking unique domains is important for protecting individuals
+      with addresses like `personal@famouscelebrity.com`
+    docs:
+      show: true
+    arguments:
+      - name: expr
+        type: string
+        description: >
+          The expression to be masked. Can be a field reference or any other
+          valid SQL expression
+      - name: mask_char
+        type: string
+        description: >
+          Defaults to `"*"`. Can be any single character
+      - name: n
+        type: integer
+        description: >
+          Defaults to `8`. The number of times `mask_char` is repeated in the result
+      - name: domain_n
+        type: integer
+        description: >
+          Defaults to `100`. Will `safe_mask` the domain part of the email address
+          if there are fewer than `domain_n` records with that domain
+      - name: lowercase
+        type: bool
+        description: >
+          Defaults to `True`. If True, lowercases the domain part of the email
+          address before partitioning

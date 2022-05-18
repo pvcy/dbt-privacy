@@ -23,7 +23,7 @@ macros:
       - name: n
         type: integer
         description: >
-          The number of times `mask_char` is repeated in the result
+          Defaults to `8`. The number of times `mask_char` is repeated in the result
       - name: keep_n
         type: integer
         description: >
