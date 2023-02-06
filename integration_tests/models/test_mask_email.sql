@@ -4,10 +4,14 @@ with
         select
             id,
             case
-                when id = 1 then null
-                when id = 2 then replace(email, '@example.com', '')
-                when id = 3 then email || '.au' 
-                when id = 4 then upper(email) 
+                when id = 1
+                then null
+                when id = 2
+                then replace(email, '@example.com', '')
+                when id = 3
+                then email || '.au'
+                when id = 4
+                then upper(email)
                 else email
             end as email
         from users

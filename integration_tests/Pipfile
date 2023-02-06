@@ -4,11 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-dbt-postgres = "*"
-dbt-snowflake = "*"
+dbt-postgres = ">=1.4.0"
+dbt-snowflake = ">=1.4.0"
 
 [dev-packages]
-shandy-sqlfmt = {extras = ["jinjafmt"], version = "*"}
+shandy-sqlfmt = {extras = ["jinjafmt"], version = ">=0.16.0"}
 
 [requires]
 python_version = "3.9"

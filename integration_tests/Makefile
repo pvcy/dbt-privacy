@@ -16,12 +16,12 @@ clean:
 
 .PHONY: fmt
 fmt:
-	pipenv run sqlfmt models
+	pipenv run sqlfmt models tests
 	
 .PHONY: psql
 psql:
 	PGPASSWORD=for_testing_only psql -h localhost -U test_user -d postgres
 
-../docs: $(wildcard ../macros/**/*)
+../docs: $(wildcard ../macros/**/*) dbt_project.yml packages.yml
 	pipenv run dbt docs generate --profiles-dir .
-	mv target/catalog.json target/index.html target/manifest.json target/run_results.json ../docs
+	cp target/catalog.json target/index.html target/manifest.json target/run_results.json ../docs
