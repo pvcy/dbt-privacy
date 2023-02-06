@@ -1,6 +1,6 @@
 {%- macro mask_email(expr, mask_char="*", n=8, domain_n=100, lowercase=True) -%}
 
-{%- set domain = dbt_privacy.split_part(expr, "'@'", 2) -%}
+{%- set domain = dbt.split_part(expr, "'@'", 2) -%}
 {%- if lowercase == true -%}
 {%- set domain_partition = dbt_privacy.sql_lower(domain) -%}
 {%- else -%} {%- set domain_partition = domain -%}

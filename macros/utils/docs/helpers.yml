@@ -8,10 +8,6 @@ macros:
     description: Wraps the passed expr in the sql `lower()` function
     docs:
       show: false
-  - name: split_part
-    description: Splits a string based on a delimeter. Only works with nonnegative parts
-    docs:
-      show: false
   - name: sql_quote_string
     description: Wraps the passed expr in single quotes
     docs:
@@ -29,12 +25,6 @@ macros:
     docs:
       show: false
   - name: postgres__simple_hash
-    docs:
-      show: false
-  - name: default__split_part
-    docs:
-      show: false
-  - name: bigquery__split_part
     docs:
       show: false
   - name: raise_on_bad_digest_size

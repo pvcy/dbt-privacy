@@ -3,3 +3,4 @@ dbt_packages/
 logs/
 /Pipfile
 /Pipfile.lock
+.vscode
