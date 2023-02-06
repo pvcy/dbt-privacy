@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2022-06-22
+
+### Fixes
+
+-   scopes the docs overview to the dbt-privacy package ([#11](https://github.com/pvcy/dbt-privacy/issues/11) - thank you, [@VillainGuy](https://github.com/VillainGuy)!)
+
 ## [0.2.0] - 2022-06-22
 
 ### Features
