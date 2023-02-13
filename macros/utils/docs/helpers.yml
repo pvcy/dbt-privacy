@@ -24,6 +24,9 @@ macros:
   - name: bigquery__simple_hash
     docs:
       show: false
+  - name: redshift__simple_hash
+    docs:
+      show: false
   - name: postgres__simple_hash
     docs:
       show: false
