@@ -11,6 +11,10 @@ sha2( ({{ expr }})::varchar, {{ digest_size }})
 encode(sha{{ digest_size }} ( ({{ expr }})::varchar::bytea), 'hex')
 {%- endmacro -%}
 
+{%- macro redshift__simple_hash(expr, digest_size=256) -%}
+sha2( ({{ expr }})::varchar, {{ digest_size }})
+{%- endmacro -%}
+
 {%- macro bigquery__simple_hash(expr, digest_size=256) -%}
 {{- dbt_privacy.raise_on_bad_digest_size(digest_size, ok_sizes=[256, 512]) -}}
 to_hex(sha{{ digest_size }} (cast({{ expr }} as string)))
