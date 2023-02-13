@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.3.0] - 2022-06-22
+## [0.3.1] - 2023-02-13
+
+### Fixes
+
+-   Fixes the hash implementation for the Redshift adapter - thank you, [@owen-dice](https://github.com/owen-dice)!)
+
+## [0.3.0] - 2023-02-06
 
 ### Fixes
 
