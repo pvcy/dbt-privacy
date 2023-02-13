@@ -6,13 +6,13 @@ All notable changes to this project will be documented in this file.
 
 ### Fixes
 
--   Fixes the hash implementation for the Redshift adapter - thank you, [@owen-dice](https://github.com/owen-dice)!)
+-   Fixes the hash implementation for the Redshift adapter - thank you, [@owen-dice](https://github.com/owen-dice)!
 
 ## [0.3.0] - 2023-02-06
 
 ### Fixes
 
--   scopes the docs overview to the dbt-privacy package ([#11](https://github.com/pvcy/dbt-privacy/issues/11) - thank you, [@VillainGuy](https://github.com/VillainGuy)!)
+-   bumps the required dbt version to >=1.2; removes dependency on dbt-utils.
 
 ## [0.2.1] - 2023-02-06
 
